@@ -65,9 +65,9 @@ export class SubstrateEventEntity {
     _entity.index = q.indexInBlock;
     _entity.id = SubstrateEventEntity.formatId(_entity.blockNumber, _entity.index);
     _entity.method = q.event_record.event.method || 'NO_METHOD';
-    _entity.name = q.event_name;
-    _entity.phase = (q.event_record.phase.toJSON() || {}) as AnyJson;
     _entity.section = q.event_record.event.section || 'NO_SECTION';
+    _entity.name = `${_entity.section}.${_entity.method}`;
+    _entity.phase = (q.event_record.phase.toJSON() || {}) as AnyJson;
     
     _entity.params = [];
 
