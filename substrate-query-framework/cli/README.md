@@ -19,12 +19,12 @@ preview   Preview the output schema served by the GraphQL server
 ## Architecture overview
 
 A Hydra query node ingests substrate events in a multi-step pipeline which looks as follows:
-```
-Substrate Chain => Hydra Indexer => Indexer GraphQL gateway => Hydra Processor => Database => Query Node GraphQL endnpoint 
+
+```text
+Substrate Chain => Hydra Indexer => Indexer GraphQL gateway => Hydra Processor => Database => Query Node GraphQL endnpoint
 ```
 
-For popular chains the processor may connect to a publicly available Indexer endpoint (such as https://hakusama.joystream.app/graphql for Kusama), otherwise a self-hosted indexer should be run.
-
+For popular chains the processor may connect to a publicly available Indexer endpoint \(such as [https://hakusama.joystream.app/graphql](https://hakusama.joystream.app/graphql) for Kusama\), otherwise a self-hosted indexer should be run.
 
 ## Using Hydra CLI
 
@@ -65,26 +65,28 @@ and answer the prompts. The scaffolder will generate the following files:
 └── schema.graphql
 ```
 
-By default the scaffolder generates mappings and a schema tracking Kusama transfers. 
+By default the scaffolder generates mappings and a schema tracking Kusama transfers.
 
 ## Dockerized quickstart
 
-The easiest way to get the whole Hydra stack working is to build a `hydra-kit` Docker image. It is a one-size-fits-all tool to run
-a database migration, the indexer and the processor. 
+The easiest way to get the whole Hydra stack working is to build a `hydra-kit` Docker image. It is a one-size-fits-all tool to run a database migration, the indexer and the processor.
 
 First, build `hydra-kit`:
+
 ```bash
 $ yarn docker:build
 ```
 
 Let's start the db and run the migrations. `hydra-kit` will connect to the network running the database container created by docker-compose.
+
 ```bash
 $ yarn docker:db:up
 $ yarn docker:db:migration
 ```
 
 Now everything is ready to run the whole stack locally:
-```
+
+```text
 $ yarn docker:up
 ```
 
@@ -106,7 +108,8 @@ In order to run them, a Postgres database should be up and running and accept co
 $ yarn db:up
 $ yarn db:migrate
 ```
-to create the database and set up the db schemas \(if the database already exists, skip the first one\). 
+
+to create the database and set up the db schemas \(if the database already exists, skip the first one\).
 
 ## Setting up the indexer
 
@@ -115,13 +118,16 @@ To run a self-hosted indexer, we need to set the indexer itself and the an Graph
 ```bash
 $ docker-compose up -d redis
 ```
+
 Now build and run the indexer:
-```
+
+```text
 $ docker-compose build indexer && docker-compose up -d indexer
 ```
 
 To run the indexer gateway, simply pull the image and run the service:
-```
+
+```text
 $ docker-compose up -d indexer-api-gateway
 ```
 
@@ -129,9 +135,9 @@ If everything set up correctly, it should be possible to inspect the gateway at 
 
 ## Running the processor
 
-When the indexer gateway is available (either locally or hosted elsewhere), the processor can be run againt it:
+When the indexer gateway is available \(either locally or hosted elsewhere\), the processor can be run againt it:
 
-```
+```text
 $ docker-compose up -d processor
 ```
 
@@ -139,10 +145,11 @@ $ docker-compose up -d processor
 
 Finally, run the query node endpoint:
 
-```
+```text
 $ docker-compose up -d graphql-server
 ```
 
 ## Examples
 
 Check out [sample projects](https://github.com/Joystream/joystream/tree/query_node/query-node/examples) for inspiration!
+
