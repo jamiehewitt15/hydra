@@ -23,7 +23,7 @@ export async function balancesTransfer(
 }
 ```
 
-A full sample Hydra project can be found [here](./../sample/README.md)
+A full sample Hydra project can be found [here](https://github.com/Joystream/hydra/tree/master/packages/sample)
 
 ## Usage
 
@@ -36,7 +36,28 @@ hydra-typegen typegen --help
 A minimal example for generating classes for the `Balances.Transfer` and `Treasury.Deposit` events in Kusama:
 
 ```bash
-hydra-typegen --metadata wss://kusama-rpc.polkadot.io Balances.Transfer,Treasury.Deposit
+hydra-typegen typegen --metadata wss://kusama-rpc.polkadot.io Balances.Transfer,Treasury.Deposit
+```
+
+It is also possible to run `hydra-typegen` against a manifest file:
+
+```bash
+hydra-typegen typegen typegen.yml --debug
+```
+
+The config file `typegen.yml` can look like this:
+
+```yml
+# Typegen will pull the metadata from Kusama at block with the given hash
+metadata:
+  source: wss://kusama-rpc.polkadot.io
+  blockHash: '0x45eb7ddd324361adadd4f8cfafadbfb7e0a26393a70a70e5bee6204fc46af62e'
+# events and calls for which the typescript types will be generated
+events:
+  - Balances.Transfer
+calls:
+  - Balances.transfer
+outDir: ./generated
 ```
 
 ## Custom types
