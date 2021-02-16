@@ -67,6 +67,7 @@ export default class Scaffold extends Command {
   }
 
   async run(): Promise<void> {
+    this.log('log 1')
     const { flags } = this.parse(Scaffold)
 
     await fs.writeFile(
@@ -81,15 +82,19 @@ export default class Scaffold extends Command {
     this.log('Your settings have been saved to .env, feel free to edit')
 
     cli.action.start('Scaffolding')
+    this.log('log 2')
 
     if (flags.mappings) {
       await this.setupMappings()
+      this.log('log 3')
     }
 
     await this.setupNodeProject()
+    this.log('log 4')
     await this.setupDocker()
-
+    this.log('log 5')
     cli.action.stop()
+    this.log('log 6')
   }
 
   async dotenvFromFlags(flags: {
